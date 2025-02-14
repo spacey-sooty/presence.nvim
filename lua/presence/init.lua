@@ -355,8 +355,14 @@ function Presence:authorize(on_done)
             return
         end
 
-        self.log:info(string.format("Authorized with Discord for %s", response.data.user.username))
-        self.is_authorized = true
+        if (response ~= nil) then
+            self.log:info(string.format("Authorized with Discord for %s", response.data.user.username))
+            self.is_authorized = true
+        else
+            self.log:warn("Failed to authorise Discord")
+            self.is_authorized = false
+        end
+
 
         if on_done then on_done() end
     end)
